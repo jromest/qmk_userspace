@@ -20,20 +20,20 @@ This is my personal keymap for the [Corne Keyboard (crkbd)](https://github.com/f
 
 ### QWERTY
 
-![Qwerty - Persistent default layer.](https://i.imgur.com/GXl2UwW.png)
+![Qwerty - Persistent default layer.](https://i.imgur.com/unus2Oh.png)
 
 ### Colemak-DH
 
-![Colemak-DH  - Persistent default layer.](https://i.imgur.com/Ex0vjUb.png)
+![Colemak-DH  - Persistent default layer.](https://i.imgur.com/cStL8Xt.png)
 
 ### Lower
 
-![Lower - Has navigation, inverted-T arrow and numpad.](https://i.imgur.com/aJM21z9.png)
+![Lower - Has navigation, inverted-T arrow and numpad.](https://i.imgur.com/CrnV9Vg.png)
 
 ### Raise
 
-![Raise - Has symbols.](https://i.imgur.com/ZIVh9Yf.png)
+![Raise - Has symbols.](https://i.imgur.com/kgRSFaK.png)
 
 ### Adjust
 
-![Adjust - Media and system control. Switch alpha keys default layout.](https://i.imgur.com/9AL3z4F.png)
+![Adjust - Media and system control. Switch alpha keys default layout.](https://i.imgur.com/xjsmdV3.png)
