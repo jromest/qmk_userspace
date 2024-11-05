@@ -29,6 +29,8 @@ enum layers {
 
 uint8_t current_base_layer = _QWERTY;
 
+bool is_caps_word_active = false;
+
 enum custom_keycodes {
     QWERTY = SAFE_RANGE,
     COLEMAK_DH,
@@ -64,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB, XXXXXXX, XXXXXXX,   KC_UP,  XXXXXXX, KC_PGUP,                     KC_HOME,  KC_7,   KC_8,    KC_9,  XXXXXXX, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS, XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN,                     KC_END,   KC_4,   KC_5,    KC_6,  XXXXXXX,  KC_DEL,
+      KC_CAPS, CW_TOGG, KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN,                     KC_END,   KC_4,   KC_5,    KC_6,  XXXXXXX,  KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, KC_ESC,                       KC_0,   KC_1,   KC_2,    KC_3,  XXXXXXX, RSFT_T(KC_ENT),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -188,9 +190,20 @@ void oled_render_logo(void) {
     oled_write_P(crkbd_logo, false);
 }
 
+void caps_word_set_user(bool active) {
+    is_caps_word_active = active;
+}
+
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_render_layer_state();
+
+        if (is_caps_word_active) {
+            oled_write_ln_P(PSTR("Caps Word: ON"), false);
+        } else {
+            oled_write_ln_P(PSTR("Caps Word: OFF"), false);
+        }
+
         oled_render_keylog();
     } else {
         oled_render_logo();
