@@ -29,4 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
 #define QUICK_TAP_TERM 0
 
+#define TAPPING_TERM 200
+
 #define OLED_FONT_H "keyboards/crkbd/keymaps/jromest/lib/glcdfont.c"
