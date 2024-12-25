@@ -87,10 +87,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!is_keyboard_master()) {
-    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
-  }
-  return rotation;
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_180; // flips the display 180 degrees if offhand
+    }
+    return rotation;
 }
 
 void oled_render_layer_state(void) {
@@ -131,11 +131,15 @@ bool oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_render_layer_state();
 
-        if (is_caps_word_active) {
-            oled_write_ln_P(PSTR("Caps Word: ON"), false);
-        } else {
-            oled_write_ln_P(PSTR("Caps Word: OFF"), false);
-        }
+        oled_write_ln_P(
+            is_caps_word_active
+                ? PSTR("CapsWord")
+                : PSTR(""), false);
+
+        oled_write_ln_P(
+            host_keyboard_led_state().caps_lock
+                ? PSTR("CapsLock")
+                : PSTR(""), false);
     } else {
         oled_render_logo();
     }
