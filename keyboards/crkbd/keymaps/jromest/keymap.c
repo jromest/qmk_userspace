@@ -20,36 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _QWERTY,
     _COLEMAK_DH,
     _LOWER,
     _RAISE,
     _ADJUST
 };
 
-uint8_t current_base_layer = _QWERTY;
-
 bool is_caps_word_active = false;
-
-enum custom_keycodes {
-    QWERTY = SAFE_RANGE,
-    COLEMAK_DH,
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
-  [_QWERTY] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_RCTL,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, RSFT_T(KC_ENT),
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                            LT(_LOWER, KC_BTN1),  KC_LCTL,  KC_BSPC,    KC_SPC,  KC_LGUI, LT(_RAISE, KC_LALT)
-                        //`----------------------------------------'  `--------------------------------------'
-  ),
-
   [_COLEMAK_DH] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_RCTL,
@@ -62,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         //`----------------------------------------'  `--------------------------------------'
   ),
 
-[_LOWER] = LAYOUT_split_3x6_3(
+  [_LOWER] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB, KC_ESC, XXXXXXX,   KC_UP,  XXXXXXX, KC_PGUP,                     KC_HOME,   KC_7,   KC_8,    KC_9,  XXXXXXX,  KC_RCTL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -88,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, QWERTY, COLEMAK_DH, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, KC_BRID, KC_BRIU, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_BRID, KC_BRIU, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -116,10 +96,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
 
-    switch (get_highest_layer(layer_state | (1UL << current_base_layer))) {
-        case _QWERTY:
-            oled_write_ln_P(PSTR("QWERTY"), false);
-            break;
+    switch (get_highest_layer(layer_state)) {
         case _COLEMAK_DH:
             oled_write_ln_P(PSTR("COLEMAK-DH"), false);
             break;
@@ -216,21 +193,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_keylog(keycode, record);
     }
 
-    switch (keycode) {
-        case QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-                current_base_layer = _QWERTY;
-            }
-            return false;
-        case COLEMAK_DH:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK_DH);
-                current_base_layer = _COLEMAK_DH;
-            }
-            return false;
-        default:
-            return true;
-    }
+    return true;
 }
 #endif // OLED_ENABLE
