@@ -21,6 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum layers {
     _COLEMAK_DH,
+    _NUM,
+    _NAV,
     _LOWER,
     _RAISE,
     _ADJUST
@@ -34,12 +36,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_RCTL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS, GUI_T(KC_A), ALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), KC_G,          KC_M, RSFT_T(KC_N), RCTL_T(KC_E), ALT_T(KC_I), GUI_T(KC_O), KC_QUOT,
+      KC_CAPS,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, RSFT_T(KC_ENT),
+      KC_LSFT, GUI_T(KC_Z), ALT_T(KC_X), LCTL_T(KC_C), LSFT_T(KC_D), LCTL_T(KC_V),  KC_K, RSFT_T(KC_H), RCTL_T(KC_COMM), ALT_T(KC_DOT), GUI_T(KC_SLSH), RSFT_T(KC_ENT),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                            LT(_LOWER, KC_CAPS),  KC_LCTL,  KC_SPC,    KC_BSPC,  KC_LGUI, LT(_RAISE, KC_LALT)
+                            LT(_LOWER, KC_CAPS),  KC_LCTL,  LT(_NAV, KC_BSPC),    LT(_NUM, KC_SPC),  KC_LGUI, LT(_RAISE, KC_LALT)
                         //`----------------------------------------'  `--------------------------------------'
+  ),
+
+  [_NUM] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      XXXXXXX, KC_LBRC,   KC_7,   KC_8,   KC_9,   KC_RBRC,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, KC_SCLN,   KC_4,   KC_5,   KC_6,    KC_EQL,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX,  KC_GRV,   KC_1,   KC_2,   KC_3,   KC_BSLS,                       XXXXXXX, KC_RSFT, KC_RCTL, KC_LALT, KC_LGUI, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                        KC_DOT,   KC_0,   KC_MINS,     KC_TRNS,  XXXXXXX,  XXXXXXX
+                                    //`----------------------------'  `--------------------------------------'
+  ),
+
+  [_NAV] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, KC_PSTE, KC_COPY,  KC_CUT, KC_UNDO,  XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, KC_ESC,  XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,                     KC_HOME, KC_PGDN, KC_PGUP,   KC_END, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                        XXXXXXX,  XXXXXXX,  KC_TRNS,    KC_ENT,  KC_BSPC,  KC_DEL
+                                    //`----------------------------'  `--------------------------------------'
   ),
 
   [_LOWER] = LAYOUT_split_3x6_3(
@@ -99,6 +125,12 @@ void oled_render_layer_state(void) {
     switch (get_highest_layer(layer_state)) {
         case _COLEMAK_DH:
             oled_write_ln_P(PSTR("Base"), false);
+            break;
+        case _NUM:
+            oled_write_ln_P(PSTR("Num"), false);
+            break;
+        case _NAV:
+            oled_write_ln_P(PSTR("Nav"), false);
             break;
         case _LOWER:
             oled_write_ln_P(PSTR("Lower"), false);
