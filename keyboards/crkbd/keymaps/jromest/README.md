@@ -4,36 +4,40 @@ This is my personal keymap for the [Corne Keyboard (crkbd)](https://github.com/f
 
 ## Layers
 
--   Qwerty - Persistent default layer.
--   Colemak-DH - Persistent default layer.
+-   Colemak-DH - Base layer, with bottom row mods.
 -   Lower - Has navigation, inverted-T arrow and numpad.
 -   Raise - Has symbols.
--   Adjust - Media and system control. Switch alpha keys default layout.
+-   Adjust - Media and system control.
+-   Navigation - Has vim-positioned H/J/K/L arrows keys.
+-   Number - Numpad and math symbols.
 
 ## Notes
 
--   CapsLock and Esc keys has been swap remap in OS level.
--   Left mouse button in the right thumb cluster because mouse left button is not working.
+-   CapsLock and Esc have been swapped at the OS level.
 -   No Function keys yet.
 
 ## Layers Visual
 
-### QWERTY
-
-![Qwerty - Persistent default layer.](https://i.imgur.com/unus2Oh.png)
-
 ### Colemak-DH
 
-![Colemak-DH  - Persistent default layer.](https://i.imgur.com/cStL8Xt.png)
+![Colemak-DH - Base layer, with bottom row mods.](https://i.imgur.com/34PkNwd.png)
 
 ### Lower
 
-![Lower - Has navigation, inverted-T arrow and numpad.](https://i.imgur.com/CrnV9Vg.png)
+![Lower - Has navigation, inverted-T arrow and numpad.](https://i.imgur.com/QAVdZ4m.png)
 
 ### Raise
 
-![Raise - Has symbols.](https://i.imgur.com/kgRSFaK.png)
+![Raise - Has symbols.](https://i.imgur.com/3BczHFT.png)
 
 ### Adjust
 
-![Adjust - Media and system control. Switch alpha keys default layout.](https://i.imgur.com/xjsmdV3.png)
+![Adjust - Media and system control.](https://i.imgur.com/jbqVP6L.png)
+
+### Navigation
+
+![Navigation - Has vim-positioned arrow keys.](https://i.imgur.com/wx1cRp7.png)
+
+### Number
+
+![Number - Numpad on the left and math symbols.](https://i.imgur.com/uh2br0c.png)
